@@ -1,7 +1,7 @@
 import json
 import os
 
-FILE = "students.json"
+FILE = "FileHandling_Python/students.json"
 
 
 def addStudent():
