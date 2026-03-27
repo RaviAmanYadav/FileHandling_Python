@@ -57,10 +57,30 @@ def showStudent():
             print("-" * 20)
 
 
+def searchStudent():
+    if not os.path.exists(FILE):
+        print("Data file not found")
+        return
+    print("Searching student")
+    roll = input("Enter the roll number => ")
+    with open(FILE, "r") as f:
+        data = json.load(f)
+
+    if roll in data:
+        print("Student Data")
+        print(f"Roll number => {roll}")
+        print(f"Student's Name => {data[roll]['name']}")
+        print(f"Father's Name => {data[roll]['father']}")
+        print(f"Mother's Name => {data[roll]['mother']}")
+    else:
+        print("Roll number not found.")
+
+
 while True:
     print("1. Add student")
     print("2. Show student")
-    print("3. Exit.")
+    print("3. Search Student")
+    print("4. Exit.")
     choice = int(input("Enter your choice => "))
     match choice:
         case 1:
@@ -68,6 +88,8 @@ while True:
         case 2:
             showStudent()
         case 3:
+            searchStudent()
+        case 4:
             exit()
         case _:
             print("Invalid operations")
