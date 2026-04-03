@@ -76,6 +76,34 @@ def searchStudent():
         print("Roll number not found.")
 
 
+def updateStudent():
+    if not os.path.exists(FILE):
+        print("Data Not found")
+        return
+    print("Updation of Student")
+    roll = input("Enter the roll number => ")
+
+    with open(FILE, "r") as f:
+        data = json.load(f)
+
+    if roll in data:
+        print("Enter New Details for the student")
+        name = input("Enter student's name => ")
+        fname = input("Enter father's name => ")
+        mname = input("Enter mother's name => ")
+
+        data[roll]["name"] = name
+        data[roll]["fanme"] = fname
+        data[roll]["mname"] = mname
+
+        with open(FILE, "w") as f:
+            json.dump(data, f, indent=4)
+
+        print("Data Updated")
+    else:
+        print("Roll number not found.")
+
+
 while True:
     print("1. Add student")
     print("2. Show student")
