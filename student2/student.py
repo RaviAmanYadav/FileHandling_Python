@@ -42,14 +42,33 @@ class StudentManage:
         name = input("Enter student name => ")
         fname = input("Enter father's name => ")
         mname = input("Enter mother's name => ")
-
         parent = Parents(fname, mname)
         roll = self._generate_roll()
-
         self.data[str(roll)] = {"name": name, "parent": parent.to_dict()}
-
         self._save_data()
         print(f"student roll number {roll} has been successfully admitted.")
+
+    def viewStudent(self):
+        if not self.data:
+            print("No data present")
+            return
+        for roll, details in self.data.items():
+            print("Roll number => ", roll)
+            print("Name => ", details["name"])
+            print("Father's Name => ", details["parent"]["father_name"])
+            print("Mother's Name => ", details["parent"]["mother_name"])
+
+    def searchStudent(self):
+        if not self.data:
+            print("No data present")
+            return
+        roll = input("Enter roll number => ")
+        if roll in self.data:
+            student = self.data[roll]
+            print("Roll number => ", roll)
+            print("Name => ", student["name"])
+            print("Father's name => ", student["parent"]["father_name"])
+            print("Mother's name => ", student["parent"]["mother_name"])
 
 
 if __name__ == "__main__":
@@ -57,12 +76,18 @@ if __name__ == "__main__":
 
     while True:
         print("1. Add student")
-        print("2.Exit")
+        print("2. View Student")
+        print("3. Search Student")
+        print("4. Exit")
         choice = int(input("Enter your choice => "))
         match choice:
             case 1:
                 manager.addStudent()
             case 2:
+                manager.viewStudent()
+            case 3:
+                manager.searchStudent()
+            case 4:
                 exit()
             case _:
                 print("Invalid operation")
