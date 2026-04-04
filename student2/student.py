@@ -70,6 +70,24 @@ class StudentManage:
             print("Father's name => ", student["parent"]["father_name"])
             print("Mother's name => ", student["parent"]["mother_name"])
 
+    def deleteStudent(self):
+        if not self.data:
+            print("No data present")
+            return
+
+        roll = input("Enter roll number => ")
+        if roll in self.data:
+            confirm = input("You really want to delete => (y/n)")
+            if confirm.lower() == "y":
+                del self.data[roll]
+                self._save_data()
+                print("Student has been removed")
+                return
+            else:
+                print("Deletion cancelled")
+        else:
+            print("Student Not found")
+
 
 if __name__ == "__main__":
     manager = StudentManage(FILE)
@@ -78,7 +96,8 @@ if __name__ == "__main__":
         print("1. Add student")
         print("2. View Student")
         print("3. Search Student")
-        print("4. Exit")
+        print("4. Delete Student")
+        print("5. Exit")
         choice = int(input("Enter your choice => "))
         match choice:
             case 1:
@@ -88,6 +107,8 @@ if __name__ == "__main__":
             case 3:
                 manager.searchStudent()
             case 4:
+                manager.deleteStudent()
+            case 5:
                 exit()
             case _:
                 print("Invalid operation")
