@@ -88,6 +88,26 @@ class StudentManage:
         else:
             print("Student Not found")
 
+    def updateStudent(self):
+        if not self.data:
+            print("No data present.")
+            return
+
+        roll = input("Enter the roll number => ")
+        if roll in self.data:
+            confirm = input("You want to update the information => ")
+            if confirm.lower() == "y":
+                name = input("Enter New Name => ")
+                fname = input("Enter Father's name => ")
+                mname = input("Enter Mother's name => ")
+                parent = Parents(fname, mname)
+                self.data[str(roll)] = {"name": name, "parent": parent.to_dict()}
+                self._save_data()
+                print("Information updated successfully.")
+        else:
+            print("Roll number is not present")
+            return
+
 
 if __name__ == "__main__":
     manager = StudentManage(FILE)
@@ -97,7 +117,8 @@ if __name__ == "__main__":
         print("2. View Student")
         print("3. Search Student")
         print("4. Delete Student")
-        print("5. Exit")
+        print("5. Update Student")
+        print("6. Exit")
         choice = int(input("Enter your choice => "))
         match choice:
             case 1:
@@ -109,6 +130,8 @@ if __name__ == "__main__":
             case 4:
                 manager.deleteStudent()
             case 5:
+                manager.updateStudent()
+            case 6:
                 exit()
             case _:
                 print("Invalid operation")
